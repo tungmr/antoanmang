@@ -34,7 +34,7 @@ public class HomeController extends HttpServlet{
 			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/web/error.jsp");
 			requestDispatcher.forward(req, resp);
 		}
-		super.doGet(req, resp);
+		//super.doGet(req, resp);
 	}
 	
 	@Override

@@ -9,7 +9,7 @@ public class DBConfig {
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_blog?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_blog?autoReconnect=true&useSSL=false", "root", "123456789");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -37,7 +37,6 @@ public class SearchController extends HttpServlet {
 			requestDispatcher.forward(req, resp);
 		}
 
-		super.doGet(req, resp);
 	}
 
 	@Override

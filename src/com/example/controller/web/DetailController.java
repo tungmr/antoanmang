@@ -45,7 +45,6 @@ public class DetailController extends HttpServlet {
 			requestDispatcher.forward(req, resp);
 		}
 
-		super.doGet(req, resp);
 	}
 
 	@Override

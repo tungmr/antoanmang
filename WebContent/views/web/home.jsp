@@ -1,28 +1,38 @@
+<%@page import="java.nio.channels.SeekableByteChannel"%>
+<%@page import="com.example.model.UserModel"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.example.model.NewsModel"%>
 <%@page import="com.example.dao.NewsDAO"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Home Page</title>
 
 <!-- Bootstrap core CSS -->
-<link href="template/web/vendor/bootstrap/css/bootstrap.min.css"
+<link
+	href="http://localhost:8080/AwesomeNews/template/web/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="template/web/css/blog-home.css" rel="stylesheet">
+<link
+	href="http://localhost:8080/AwesomeNews/template/web/css/blog-home.css"
+	rel="stylesheet">
 
 </head>
 <body>
 
+	<%
+		UserModel user = (UserModel) session.getAttribute("user");
+	%>
+
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="/AwesomeNews/home-page">Start Bootstrap</a>
+			<a class="navbar-brand" href="/AwesomeNews/home-page">Start
+				Bootstrap</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarResponsive" aria-controls="navbarResponsive"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -30,6 +40,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" href="#">Hello, ${user.getFullName() }</a></li>
 					<li class="nav-item active"><a class="nav-link"
 						href="/AwesomeNews/home-page">Home <span class="sr-only">(current)</span>
 					</a></li>
@@ -37,7 +48,18 @@
 					<li class="nav-item"><a class="nav-link" href="#">Services</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
-					</li>
+
+						<%
+							if (user != null) {
+						%>
+					<li class="nav-item"><a class="nav-link" href="/AwesomeNews/logout">Log out</a>
+						<%
+							} else {
+						%>
+					<li class="nav-item"><a class="nav-link" href="#">Log in</a> <%
+ 	}
+ %></li>
+
 				</ul>
 			</div>
 		</div>
@@ -55,7 +77,9 @@
 
 				<!-- Blog Post -->
 				<%
-					ArrayList<NewsModel> listNews = (ArrayList<NewsModel>) request.getAttribute("listNews");
+					NewsDAO newsDAO = new NewsDAO();
+
+					ArrayList<NewsModel> listNews = newsDAO.getListNews();
 					for (NewsModel news : listNews) {
 				%>
 				<div class="card mb-4">
@@ -73,7 +97,7 @@
 					</div>
 				</div>
 				<%
-					}					
+					}
 				%>
 
 				<!-- Pagination -->
@@ -95,11 +119,11 @@
 					<div class="card-body">
 						<div class="input-group">
 							<!-- Form Search -->
-							<form action="/AwesomeNew/search-result" method="GET">
+							<form action="/AwesomeNews/search-result" method="GET">
 								<input type="text" class="form-control"
 									placeholder="Search for..." name="keyword"> <input
 									type="submit" class="btn btn-secondary input-group-btn"
-									value="Go!">									
+									value="Go!">
 							</form>
 							<!-- ./ Form Search -->
 						</div>
