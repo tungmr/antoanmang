@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import com.example.model.NewsModel;
+import com.example.model.UserModel;
+
+
 
 public class NewsDAO {
 	public ArrayList<NewsModel> getListNews() {
@@ -84,6 +87,24 @@ public class NewsDAO {
 			}
 		}
 		return results;
+	}
+	
+	public static boolean addNews(NewsModel news) {
+		String sql = "INSERT INTO tb_news(title,image,description,content,author) VALUES(?,?,?,?,?)";
+		Connection connection = DBConfig.getConnection();
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, news.getTitle());
+			preparedStatement.setString(2, news.getImage());
+			preparedStatement.setString(3, news.getDescription());
+			preparedStatement.setString(4, news.getContent());
+			preparedStatement.setString(5, news.getAuthor());
+	
+			return preparedStatement.executeUpdate() ==1;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
 	}
 
 	public static void main(String[] args) {

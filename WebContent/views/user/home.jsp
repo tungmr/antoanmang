@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page import="com.example.model.UserModel"%>
+<%@ page language="java"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
@@ -19,14 +20,16 @@
 </head>
 <body>
 
+
+
 	<div class="d-flex" id="wrapper">
 
 		<!-- Sidebar -->
 		<div class="bg-light border-right" id="sidebar-wrapper">
-			<div class="sidebar-heading">Start Bootstrap</div>
+			<div class="sidebar-heading">USER PAGE</div>
 			<div class="list-group list-group-flush">
 				<a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Add News</a>
+				<a href="/AwesomeNews/views/user/addnews.jsp" class="list-group-item list-group-item-action bg-light">Add News</a>
 				<a href="#" class="list-group-item list-group-item-action bg-light">Edit News</a>
 				<a href="#" class="list-group-item list-group-item-action bg-light">Edit News</a>
 				<a href="#" class="list-group-item list-group-item-action bg-light">Personal Information</a>
@@ -36,6 +39,11 @@
 
 		<!-- Page Content -->
 		<div id="page-content-wrapper">
+		
+		<%
+		UserModel user = (UserModel) session.getAttribute("user");
+		%>
+		
 
 			<nav
 				class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
@@ -54,7 +62,14 @@
 						<li class="nav-item active"><a class="nav-link" href="#">Home
 								<span class="sr-only">(current)</span>
 						</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
+						<%
+						if (user!=null){
+							%>
+							<li class="nav-item"><a class="nav-link" href="/AwesomeNews/logout">Hello ${user.getFullName() }, Logout</a></li>
+							<%
+						}
+						%>
+						
 					</ul>
 				</div>
 			</nav>

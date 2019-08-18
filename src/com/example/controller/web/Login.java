@@ -40,7 +40,7 @@ public class Login extends HttpServlet {
 		UserModel user = (UserModel) httpSession.getAttribute("user");
 		if (user != null) {
 			if (user.getRole() == 0 && user.getRoleName().equals("user")) {
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/views/web/home.jsp");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/views/user/home.jsp");
 				requestDispatcher.forward(request, response);
 			} else {
 				if (user.getRole() == 1 && user.getRoleName().equals("admin")) {
@@ -77,7 +77,7 @@ public class Login extends HttpServlet {
 				int role = user.getRole();
 				String roleName = user.getRoleName();
 				if (role == 0 && roleName.equals("user")) {
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/views/web/home.jsp");
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/views/user/home.jsp");
 					requestDispatcher.forward(request, response);
 				} else if (role == 1 && roleName.equals("admin")) {
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/views/admin/home.jsp");

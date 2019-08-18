@@ -41,7 +41,7 @@ public class AdminFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		String url = req.getRequestURI();
-		if (url.startsWith("/AwesomeNews/views/admin/")) {
+		if (url.startsWith("/AwesomeNews/views/admin/") || url.startsWith("/AwesomeNews/views/user/")) {
 			HttpSession session = req.getSession();
 			UserModel user = (UserModel) session.getAttribute("user");
 			if (user!=null) {
@@ -49,10 +49,9 @@ public class AdminFilter implements Filter {
 				String roleName = user.getRoleName();
 				if (role == 1 && roleName.equals("admin")) {
 					chain.doFilter(request, response);
-				}else {
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/views/web/home.jsp");
-					requestDispatcher.forward(request, response);
-				
+				}else if (url.startsWith("/AwesomeNews/views/user/")) {
+					chain.doFilter(request, response);
+
 				}
 			}else {
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/views/admin/login.jsp");

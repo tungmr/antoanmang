@@ -49,16 +49,9 @@
 					</li>
 					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
 
-						<%
-							if (user != null) {
-						%>
-					<li class="nav-item"><a class="nav-link" href="/AwesomeNews/logout">Log out</a>
-						<%
-							} else {
-						%>
-					<li class="nav-item"><a class="nav-link" href="#">Log in</a> <%
- 	}
- %></li>
+						
+					<li class="nav-item"><a class="nav-link" href="/AwesomeNews/login">Log in</a> 
+					</li>
 
 				</ul>
 			</div>

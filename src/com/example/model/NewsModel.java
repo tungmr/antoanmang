@@ -4,19 +4,38 @@ public class NewsModel {
 	public int ID;
 	public String title;
 	public String image;
+	private String description;
 	public String content;
 	public String author;
 	
 	public NewsModel() {
 	}
 
-	public NewsModel(int iD, String title, String image, String content, String author) {
+	
+
+	public NewsModel(int iD, String title, String image, String description, String content, String author) {
+		super();
 		ID = iD;
 		this.title = title;
 		this.image = image;
+		this.description = description;
 		this.content = content;
 		this.author = author;
 	}
+
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
 
 	public int getID() {
 		return ID;
