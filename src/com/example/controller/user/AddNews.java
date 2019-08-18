@@ -19,6 +19,7 @@ import java.io.OutputStream;
 
 import com.example.dao.NewsDAO;
 import com.example.model.NewsModel;
+import com.example.tools.CheckFilename;
 
 /**
  * Servlet implementation class AddNews
@@ -65,14 +66,24 @@ public class AddNews extends HttpServlet {
 		news.setAuthor(request.getParameter("author"));
 		news.setImage(uploadFile(request));
 
-		if (NewsDAO.addNews(news)) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/user/addnews.jsp?e=0");
-			dispatcher.forward(request, response);
+		Part filePart = request.getPart("image");
+		String fileName = getFileName(filePart);
+		String mimeType = getServletContext().getMimeType(fileName);
+		//System.out.println(mimeType);
 
-		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/user/addnews.jsp?e=1");
-			dispatcher.forward(request, response);
+		if (mimeType.startsWith("image/")) {
+			if (CheckFilename.checkFaultFileName(fileName)) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/views/user/addnews.jsp?e=1");
+				dispatcher.forward(request, response);
+			} else {
+				if (NewsDAO.addNews(news)) {
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/views/user/addnews.jsp?e=0");
+					dispatcher.forward(request, response);
 
+				} else {
+
+				}
+			}
 		}
 
 	}
@@ -88,7 +99,7 @@ public class AddNews extends HttpServlet {
 			String applicationPath = request.getServletContext().getRealPath("");
 			System.out.println(applicationPath);
 			// File.separator: \
-			String basePath = applicationPath  + UPLOAD_DIR + File.separator;
+			String basePath = applicationPath + UPLOAD_DIR + File.separator;
 			System.out.println(basePath);
 			InputStream inputStream = null;
 			OutputStream outputStream = null;

@@ -103,6 +103,10 @@
 					%>
 					<p style="color: green;">News Added successfully! </p>
 					<%
+				}else if (e.equals("1")){
+					%>
+					<p style="color: red;">Add failed! </p>
+					<%
 				}
 				%>
 				
